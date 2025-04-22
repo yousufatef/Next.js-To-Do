@@ -1,24 +1,70 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-
-/* Light Mode  */
+/* Base Color Variables */
 @layer base {
     :root {
-        --default-brand: 253 60% 52.9%;
-        --foreground: #000000;
+        /* Light Mode Colors */
+        --background: oklch(1 0 0);
+        --foreground: oklch(0.145 0 0);
+        --primary: oklch(0.205 0 0);
+        /* --primary: #e0000055; */
+        --primary-foreground: oklch(0.985 0 0);
+        --secondary: oklch(0.97 0 0);
+        --secondary-foreground: oklch(0.205 0 0);
+        --muted: oklch(0.97 0 0);
+        --muted-foreground: oklch(0.556 0 0);
+        --accent: oklch(0.97 0 0);
+        --accent-foreground: oklch(0.205 0 0);
+        --destructive: oklch(0.577 0.245 27.325);
+
+        /* Component Colors (Light Mode) */
+        --shadow-color: oklch(0.145 0 0 / 0.1);
+        --border-color: oklch(0.9 0 0);
+        --hover-background: oklch(0.95 0 0);
+        --active-background: oklch(0.9 0 0);
     }
 
     .dark {
-        --default-brand: 152.9 60% 52.9%;
-        --foreground: #ededed;
+        /* Dark Mode Colors */
+        --background: oklch(0.145 0 0);
+        --foreground: oklch(0.985 0 0);
+        --primary: oklch(0.922 0 0);
+        --primary-foreground: oklch(0.205 0 0);
+        --secondary: oklch(0.269 0 0);
+        --secondary-foreground: oklch(0.985 0 0);
+        --muted: oklch(0.269 0 0);
+        --muted-foreground: oklch(0.708 0 0);
+        --accent: oklch(0.371 0 0);
+        --accent-foreground: oklch(0.985 0 0);
+        --destructive: oklch(0.704 0.191 22.216);
 
+        /* Component Colors (Dark Mode) */
+        --shadow-color: oklch(0 0 0 / 0.3);
+        --border-color: oklch(0.3 0 0);
+        --hover-background: oklch(0.2 0 0);
+        --active-background: oklch(0.25 0 0);
     }
 }
 
-/* Custom Colors in Tailwind */
+/* Theme Extension */
 @theme {
-    --color-primary: hsl(var(--default-brand)/.7);
-    --color-foreground: var(--foreground)
-}
+    /* Base Colors */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
 
-@custom-variant dark (&:where(.dark, .dark *));
+    /* Component Colors */
+    --shadow-box-shadow-first: 0px 1px 0px var(--shadow-color);
+    --color-button-border-color: var(--border-color);
+    --color-hover-background: var(--hover-background);
+    --color-active-background: var(--active-background);
+}
