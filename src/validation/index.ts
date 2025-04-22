@@ -7,4 +7,5 @@ export const todoFormSchema = z.object({
     body: z.string().max(80, {
         message: "Body must be at maximum 80 characters.",
     }).optional(),
+    completed: z.boolean(),
 })

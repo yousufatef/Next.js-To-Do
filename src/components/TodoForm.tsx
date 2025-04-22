@@ -11,20 +11,22 @@ import { z } from 'zod'
 import { Textarea } from './ui/textarea'
 import { todoFormSchema } from '@/validation'
 import { creteTodoListAction } from '../../actions/todo.actions'
+import { Checkbox } from './ui/checkbox'
 
 const TodoForm = () => {
     const form = useForm<z.infer<typeof todoFormSchema>>({
         resolver: zodResolver(todoFormSchema),
         defaultValues: {
-            title: "DEFAULT TITLE",
-            body: "DEFAULT DESCRIPTION",
+            title: "",
+            body: "",
+            completed: false,
         },
     });
 
 
     const onSubmit = (data: z.infer<typeof todoFormSchema>) => {
-        const { title, body } = data
-        creteTodoListAction({ title, body })
+        const { title, body, completed } = data
+        creteTodoListAction({ title, body, completed })
 
     }
 
@@ -68,6 +70,24 @@ const TodoForm = () => {
                                         <FormControl>
                                             <Textarea placeholder="Enter your description" {...field} />
                                         </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="completed"
+                                render={({ field }) => (
+                                    <FormItem className='flex'>
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={(checked) => {
+                                                    field.onChange(checked);
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <FormLabel>Completed</FormLabel>
                                         <FormMessage />
                                     </FormItem>
                                 )}
