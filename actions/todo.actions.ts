@@ -7,7 +7,13 @@ export const getTodoListAction = async () => {
     const todos = await prisma.todo.findMany()
     return todos
 }
-export const creteTodoListAction = async () => {
+export const creteTodoListAction = async ({ title, body }: { title: string, body: string | undefined }) => {
+    await prisma.todo.create({
+        data: {
+            title,
+            body
+        }
+    })
 }
 export const updateTodoListAction = async () => {
 }

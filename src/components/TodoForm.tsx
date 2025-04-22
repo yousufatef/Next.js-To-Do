@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Textarea } from './ui/textarea'
 import { todoFormSchema } from '@/validation'
+import { creteTodoListAction } from '../../actions/todo.actions'
 
 const TodoForm = () => {
     const form = useForm<z.infer<typeof todoFormSchema>>({
@@ -22,7 +23,8 @@ const TodoForm = () => {
 
 
     const onSubmit = (data: z.infer<typeof todoFormSchema>) => {
-        console.log(data);
+        const { title, body } = data
+        creteTodoListAction({ title, body })
 
     }
 
