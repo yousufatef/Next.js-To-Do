@@ -12,8 +12,13 @@ import { Textarea } from './ui/textarea'
 import { todoFormSchema } from '@/validation'
 import { creteTodoListAction } from '../../actions/todo.actions'
 import { Checkbox } from './ui/checkbox'
+import { useState } from 'react'
+import Spinner from './Spinner'
 
 const TodoForm = () => {
+    const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const form = useForm<z.infer<typeof todoFormSchema>>({
         resolver: zodResolver(todoFormSchema),
         defaultValues: {
@@ -24,14 +29,16 @@ const TodoForm = () => {
     });
 
 
-    const onSubmit = (data: z.infer<typeof todoFormSchema>) => {
+    const onSubmit = async (data: z.infer<typeof todoFormSchema>) => {
+        setLoading(true)
         const { title, body, completed } = data
-        creteTodoListAction({ title, body, completed })
-
+        await creteTodoListAction({ title, body, completed })
+        setLoading(false)
+        setOpen(false)
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild className="ml-auto">
                 <Button>
                     <Plus size={14} />New Todo
@@ -93,7 +100,9 @@ const TodoForm = () => {
                                 )}
                             />
                             <DialogFooter>
-                                <Button type="submit">Submit</Button>
+                                <Button type="submit">
+                                    {loading ? <><Spinner /> Saving</> : "Save"}
+                                </Button>
                             </DialogFooter>
                         </form>
                     </Form>
