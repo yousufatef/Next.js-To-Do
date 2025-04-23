@@ -8,13 +8,13 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "./ui/button"
-import { Pen, Trash } from "lucide-react"
 import { ITodo } from "@/types"
 import { Badge } from "./ui/badge"
+import TodosTableActions from "./TodosTableActions"
 
 
 const TodoTable = ({ todos }: { todos: ITodo[] }) => {
+
     return (
         <>
             <div>TodoTable</div> <Table>
@@ -37,12 +37,8 @@ const TodoTable = ({ todos }: { todos: ITodo[] }) => {
                             <TableCell>{todo.completed ?
                                 <Badge>Completed</Badge> : <Badge variant={"secondary"}>Uncompleted</Badge>}</TableCell>
                             <TableCell className="flex items-center justify-end space-x-2">
-                                <Button size={"icon"}>
-                                    <Pen size={16} />
-                                </Button>
-                                <Button size={"icon"} variant={"destructive"}>
-                                    <Trash size={16} />
-                                </Button></TableCell>
+                                <TodosTableActions id={todo.id} />
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -52,7 +48,7 @@ const TodoTable = ({ todos }: { todos: ITodo[] }) => {
                         <TableCell className="text-right">5</TableCell>
                     </TableRow>
                 </TableFooter>
-            </Table>
+            </Table >
         </>
     )
 }
