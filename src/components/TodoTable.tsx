@@ -13,7 +13,7 @@ import { Badge } from "./ui/badge"
 import TodosTableActions from "./TodosTableActions"
 
 
-const TodoTable = ({ todos }: { todos: ITodo[] }) => {
+const TodoTable =  ({ todos }: { todos: ITodo[] }) => {
 
     return (
         <>
@@ -37,7 +37,7 @@ const TodoTable = ({ todos }: { todos: ITodo[] }) => {
                             <TableCell>{todo.completed ?
                                 <Badge>Completed</Badge> : <Badge variant={"secondary"}>Uncompleted</Badge>}</TableCell>
                             <TableCell className="flex items-center justify-end space-x-2">
-                                <TodosTableActions id={todo.id} />
+                                <TodosTableActions todo={todo} />
                             </TableCell>
                         </TableRow>
                     ))}

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+import { Pen } from 'lucide-react'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -14,17 +14,18 @@ import { creteTodoListAction } from '../../actions/todo.actions'
 import { Checkbox } from './ui/checkbox'
 import { useState } from 'react'
 import Spinner from './Spinner'
+import { ITodo } from '@/types'
 
-const TodoForm = () => {
+const EditTodoForm = ({ todo }: { todo: ITodo }) => {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const form = useForm<z.infer<typeof todoFormSchema>>({
         resolver: zodResolver(todoFormSchema),
         defaultValues: {
-            title: "",
-            body: "",
-            completed: false,
+            title: todo.title,
+            body: todo.body as string,
+            completed: todo.completed as boolean,
         },
     });
 
@@ -40,14 +41,13 @@ const TodoForm = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild className="ml-auto">
-                <Button>
-                    <Plus size={14} />New Todo
+                <Button size={"icon"}>
+                    <Pen size={16} />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>New Todo</DialogTitle>
-        
+                    <DialogTitle>Edit Todo</DialogTitle>
                 </DialogHeader>
                 <div className="py-4">
 
@@ -110,4 +110,4 @@ const TodoForm = () => {
     )
 }
 
-export default TodoForm
+export default EditTodoForm
