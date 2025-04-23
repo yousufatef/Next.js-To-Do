@@ -7,7 +7,7 @@ const Home = async () => {
   const todos = await getTodoListAction()
   return (
     <main className='container'>
-      <TodoTable />
+      <TodoTable todos={todos} />
       <TodoForm />
     </main>
   )

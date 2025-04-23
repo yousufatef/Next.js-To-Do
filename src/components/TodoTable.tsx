@@ -9,10 +9,12 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "./ui/button"
-import { Pin, Trash } from "lucide-react"
+import { Pen, Trash } from "lucide-react"
+import { ITodo } from "@/types"
+import { Badge } from "./ui/badge"
 
 
-const TodoTable = () => {
+const TodoTable = ({ todos }: { todos: ITodo[] }) => {
     return (
         <>
             <div>TodoTable</div> <Table>
@@ -28,18 +30,21 @@ const TodoTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableCell className="font-medium">fweeeeeeeeefwefwefwfwef</TableCell>
-                        <TableCell>fwefwefwefwfewef</TableCell>
-                        <TableCell>Completed</TableCell>
-                        <TableCell className="flex items-center justify-end space-x-2">
-                            <Button size={"icon"}>
-                                <Pin size={16} />
-                            </Button>
-                            <Button size={"icon"} variant={"destructive"}>
-                                <Trash size={16} />
-                            </Button></TableCell>
-                    </TableRow>
+                    {todos.map(todo => (
+                        <TableRow key={todo.id}>
+                            <TableCell className="font-medium">{todo.id}</TableCell>
+                            <TableCell>{todo.title}</TableCell>
+                            <TableCell>{todo.completed ?
+                                <Badge>Completed</Badge> : <Badge variant={"secondary"}>Uncompleted</Badge>}</TableCell>
+                            <TableCell className="flex items-center justify-end space-x-2">
+                                <Button size={"icon"}>
+                                    <Pen size={16} />
+                                </Button>
+                                <Button size={"icon"} variant={"destructive"}>
+                                    <Trash size={16} />
+                                </Button></TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
                 <TableFooter>
                     <TableRow>
