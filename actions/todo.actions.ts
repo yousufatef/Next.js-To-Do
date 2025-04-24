@@ -1,4 +1,5 @@
 "use server"
+import { ITodo } from "@/types";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
@@ -18,9 +19,20 @@ export const creteTodoListAction = async ({ title, body, completed }: { title: s
     })
     revalidatePath("/")
 }
-export const updateTodoListAction = async () => {
+export const updateTodoAction = async ({ id, title, body, completed }: ITodo) => {
+    await prisma.todo.update({
+        where: {
+            id,
+        },
+        data: {
+            title,
+            body,
+            completed,
+        },
+    });
+    revalidatePath("/")
 }
-export const deleteTodoAction = async ({ id }: { id: string }) => {
+export const deleteTodoAction = async ({ id }: { id: string; }) => {
     await prisma.todo.delete({
         where: {
             id

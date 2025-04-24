@@ -3,5 +3,5 @@ export interface ITodo {
     title: string;
     id: string;
     completed: boolean | null;
-    createdAt: Date;
+    createdAt?: Date;
 }

@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Textarea } from './ui/textarea'
 import { todoFormSchema } from '@/validation'
-import { creteTodoListAction } from '../../actions/todo.actions'
+import { updateTodoAction } from '../../actions/todo.actions'
 import { Checkbox } from './ui/checkbox'
 import { useState } from 'react'
 import Spinner from './Spinner'
@@ -32,8 +32,7 @@ const EditTodoForm = ({ todo }: { todo: ITodo }) => {
 
     const onSubmit = async (data: z.infer<typeof todoFormSchema>) => {
         setLoading(true)
-        const { title, body, completed } = data
-        await creteTodoListAction({ title, body, completed })
+        await updateTodoAction({ id: todo.id, title: data.title, body: data.body as string, completed: data.completed });
         setLoading(false)
         setOpen(false)
     }
