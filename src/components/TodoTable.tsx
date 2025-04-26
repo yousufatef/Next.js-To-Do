@@ -13,7 +13,7 @@ import { Badge } from "./ui/badge"
 import TodosTableActions from "./TodosTableActions"
 
 
-const TodoTable =  ({ todos }: { todos: ITodo[] }) => {
+const TodoTable = ({ todos }: { todos: ITodo[] }) => {
 
     return (
         <>
@@ -45,7 +45,7 @@ const TodoTable =  ({ todos }: { todos: ITodo[] }) => {
                 <TableFooter>
                     <TableRow>
                         <TableCell colSpan={3}>Total</TableCell>
-                        <TableCell className="text-right">5</TableCell>
+                        <TableCell className="text-right">{!todos.length ? "You Don't Have Any Todo Yet!" : todos.length}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table >

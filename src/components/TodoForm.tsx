@@ -15,7 +15,7 @@ import { Checkbox } from './ui/checkbox'
 import { useState } from 'react'
 import Spinner from './Spinner'
 
-const TodoForm = () => {
+const TodoForm = ({ userId }: { userId: string | null }) => {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ const TodoForm = () => {
     const onSubmit = async (data: z.infer<typeof todoFormSchema>) => {
         setLoading(true)
         const { title, body, completed } = data
-        await creteTodoListAction({ title, body, completed })
+        await creteTodoListAction({ title, body, completed, userId })
         setLoading(false)
         setOpen(false)
     }
@@ -47,7 +47,7 @@ const TodoForm = () => {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>New Todo</DialogTitle>
-        
+
                 </DialogHeader>
                 <div className="py-4">
 
